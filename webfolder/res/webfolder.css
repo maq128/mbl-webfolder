@@ -1,0 +1,233 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: white;
+	color: black;
+	font-size: 14px;
+	cursor: default;
+	height: 100%;
+}
+
+#window-body {
+	width: 100%;
+	height: 100%;
+}
+
+#toolbar {
+	padding: 5px;
+}
+#toolbar .switch-path {
+	padding: 5px;
+}
+#toolbar .switch-path:hover {
+	background-color: #eee;
+}
+
+#list {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #ccc;
+}
+
+#list tr:hover {
+	background-color: #f8f8f8;
+}
+
+#list th, #list td {
+	border: 1px solid #ccc;
+	padding: 4px 5px;
+	line-height: 14px;
+	font-size: 12px;
+}
+
+.switch-path {
+	cursor: pointer;
+}
+.switch-path:hover {
+	text-decoration: underline;
+}
+
+.download-file {
+	color: black;
+	text-decoration: none;
+}
+.download-file:hover {
+	text-decoration: underline;
+}
+
+.dir-name:before {
+	font-family: Wingdings;
+	font-size: 14px;
+	content: '0';
+	display: inline-block;
+	width: 18px;
+}
+.dir-name-up:before {
+	font-family: "Wingdings 3";
+	content: '<';
+}
+
+.dir-name .remove-dir {
+	display: none;
+	float: right;
+	font-family: "Wingdings 2";
+	font-size: 16px;
+	width: 18px;
+	cursor: pointer;
+	color: #888;
+}
+.dir-name:hover .remove-dir {
+	display: block;
+}
+.dir-name .remove-dir:hover {
+	color: red;
+}
+
+.dir-name .download-dir {
+	display: none;
+	float: right;
+	margin-right: 5px;
+	margin-top: -2px;
+	font-family: "Wingdings 2";
+	font-size: 16px;
+	width: 18px;
+	cursor: pointer;
+	color: #888;
+}
+.dir-name:hover .download-dir {
+	display: block;
+}
+.dir-name .download-dir:hover {
+	color: green;
+}
+
+.file-name:before {
+	font-family: "Wingdings 2";
+	font-size: 16px;
+	content: '/';
+	display: inline-block;
+	width: 18px;
+}
+
+.file-name .remove-file {
+	display: none;
+	float: right;
+	font-family: "Wingdings 2";
+	font-size: 16px;
+	width: 18px;
+	cursor: pointer;
+	color: #888;
+}
+.file-name:hover .remove-file {
+	display: block;
+}
+.file-name .remove-file:hover {
+	color: red;
+}
+
+.dir-name .rename-dir,
+.file-name .rename-file {
+	display: none;
+	float: right;
+	font-family: "Wingdings 3";
+	font-size: 16px;
+	width: 18px;
+	cursor: pointer;
+	color: #888;
+}
+.dir-name:hover .rename-dir,
+.file-name:hover .rename-file {
+	display: block;
+}
+.dir-name .rename-dir:hover,
+.file-name .rename-file:hover {
+	color: green;
+}
+
+.file-size {
+	text-align: right;
+}
+.file-mtime {
+	text-align: center;
+}
+
+.page-mask {
+	display: none;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	opacity: 0.7;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+}
+.page-mask .waiting {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -12px;
+	margin-top: -12px;
+}
+
+.upload-zone {
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: 400px;
+	height: 300px;
+	margin-left: -200px;
+	margin-top: -150px;
+	background-color: #eee;
+	border: 3px dashed green;
+}
+
+.upload-zone .qq-uploader {
+	height: 100%;
+}
+.upload-zone .qq-upload-drop-area span {
+	margin-top: -58px;
+}
+
+x.qq-upload-drop-area-active:before {
+	content: "拖拽文件上传到当前目录";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -100px;
+	margin-top: -20px;
+	padding: 20px;
+	background-color: white;
+}
+
+.upload-zone .btn-close {
+	position: absolute;
+	right: -15px;
+	top: -15px;
+	width: 35px;
+	height: 35px;
+	z-index: 4;
+	background-image: url(close.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	cursor: pointer;
+}
+
+.upload-zone .qq-upload-list {
+	overflow-y: auto;
+	height: 100%;
+}
+
+.upload-zone .qq-upload-list li {
+	font-size: 12px;
+}
+
+.upload-zone .btn-reset-filename {
+	cursor: pointer;
+}
+.upload-zone .btn-reset-filename:hover {
+	text-decoration: underline;
+}

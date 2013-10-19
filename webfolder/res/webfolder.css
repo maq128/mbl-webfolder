@@ -23,6 +23,10 @@ body {
 	background-color: #eee;
 }
 
+#toolbar .cur-path {
+	width: 100%;
+}
+
 #list {
 	width: 100%;
 	border-collapse: collapse;
@@ -125,8 +129,8 @@ body {
 	color: red;
 }
 
-.dir-name .rename-dir,
-.file-name .rename-file {
+.dir-name .rename-fso,
+.file-name .rename-fso {
 	display: none;
 	float: right;
 	font-family: "Wingdings 3";
@@ -135,12 +139,31 @@ body {
 	cursor: pointer;
 	color: #888;
 }
-.dir-name:hover .rename-dir,
-.file-name:hover .rename-file {
+.dir-name:hover .rename-fso,
+.file-name:hover .rename-fso {
 	display: block;
 }
-.dir-name .rename-dir:hover,
-.file-name .rename-file:hover {
+.dir-name .rename-fso:hover,
+.file-name .rename-fso:hover {
+	color: green;
+}
+
+.dir-name .move-fso,
+.file-name .move-fso {
+	display: none;
+	float: right;
+	font-family: "Wingdings 3";
+	font-size: 16px;
+	width: 18px;
+	cursor: pointer;
+	color: #888;
+}
+.dir-name:hover .move-fso,
+.file-name:hover .move-fso {
+	display: block;
+}
+.dir-name .move-fso:hover,
+.file-name .move-fso:hover {
 	color: green;
 }
 

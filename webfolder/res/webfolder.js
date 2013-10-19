@@ -192,9 +192,9 @@ function switchToDir( path )
 		if ( ! isTop ) {
 			html += [
 				'<button class="btn-create-dir">创建子目录</button>',
-				'<button class="btn-upload-file">上传文件</button>',
-				'<button class="btn-upload-zip">上传压缩包</button>'
+				'<button class="btn-upload-file">上传文件</button>'
 			].join(' ');
+			html = '<input class="cur-path" value="/' + g_curPath + '"/><br>' + html;
 		}
 
 		g_domToolbar.html( html );
@@ -219,7 +219,8 @@ function switchToDir( path )
 					'<td class="dir-name" data-path="' + data.path + '/' + subdir.name + '">',
 						'<span class="switch-path">' + subdir.name + '</span>',
 						isTop ? '' : '<div class="remove-dir" title="删除目录">&#211;</div>',
-						isTop ? '' : '<div class="rename-dir" title="重命名">&#68;</div>',
+						isTop ? '' : '<div class="rename-fso" title="重命名">&#68;</div>',
+						isTop ? '' : '<div class="move-fso" title="移动">&#98;</div>',
 						isTop ? '' : '<div class="download-dir" title="下载整个目录压缩包">&#46;</div>',
 					'</td>',
 					'<td></td>',
@@ -245,7 +246,8 @@ function switchToDir( path )
 					'<td class="file-name" data-path="' + data.path + '/' + file.name + '">',
 						'<a class="download-file" target="_blank" href="wfs.php?m=download&path=' + encodeURIComponent(data.path + '/' + file.name) + '">' + file.name + '</a>',
 						'<div class="remove-file" title="删除文件">&#207;</div>',
-						'<div class="rename-file" title="重命名">&#68;</div>',
+						'<div class="rename-fso" title="重命名">&#68;</div>',
+						'<div class="move-fso" title="移动">&#98;</div>',
 					'</td>',
 					'<td class="file-size">' + str_segment( file.size ) + '</td>',
 					'<td class="file-mtime">' + mtime + '</td>',
@@ -348,11 +350,6 @@ $(document).ready( function() {
 		createDir( name );
 	});
 
-	// 点击“上传压缩包”
-	$(document.body).delegate( '.btn-upload-zip', 'click', function( evt ) {
-		alert('以压缩包的形式上传文件及目录\r\n\r\n抱歉，该功能尚未实现');
-	});
-
 	// 点击“下载整个目录压缩包”
 	$(document.body).delegate( '.download-dir', 'click', function( evt ) {
 		alert('以压缩包的形式下载整个目录\r\n\r\n抱歉，该功能尚未实现');
@@ -381,7 +378,7 @@ $(document).ready( function() {
 	});
 
 	// 点击“重命名”
-	$(document.body).delegate( '.rename-dir, .rename-file', 'click', function( evt ) {
+	$(document.body).delegate( '.rename-fso', 'click', function( evt ) {
 		var path = $(evt.currentTarget).parent().attr( 'data-path' );
 		var pos = path.lastIndexOf( '/' );
 		var newDir = path.substr( 0, pos );
@@ -389,6 +386,17 @@ $(document).ready( function() {
 		var newName = prompt( '请输入新的名字', name );
 		if ( !newName || newName == name ) return;
 		moveFso( path, newDir, newName );
+	});
+
+	// 点击“移动”
+	$(document.body).delegate( '.move-fso', 'click', function( evt ) {
+		var path = $(evt.currentTarget).parent().attr( 'data-path' );
+		var pos = path.lastIndexOf( '/' );
+		var oldDir = '/' + path.substr( 0, pos );
+		var name = path.substr( pos + 1 );
+		var newDir = prompt( '请输入目标目录的路径', oldDir );
+		if ( !newDir || newDir == oldDir ) return;
+		moveFso( path, newDir, name );
 	});
 
 	switchToDir( '' );

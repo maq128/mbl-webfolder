@@ -38,7 +38,7 @@ if ( $os[0] != 'windows' ) {
 <div class="upload-zone"></div>
 
 <script language="JavaScript" src="res/jquery-1.10.2.min.js"></script><!-- http://api.jquery.com/ -->
-<script language="JavaScript" src="res/fineuploader-3.9.1.min.js"></script><!-- http://docs.fineuploader.com/ -->
+<script language="JavaScript" src="res/fineuploader.js"></script><!-- http://docs.fineuploader.com/ -->
 <script language="JavaScript" src="res/webfolder.js"></script>
 </body>
 </html>

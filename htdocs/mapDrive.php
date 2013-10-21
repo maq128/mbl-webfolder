@@ -113,6 +113,11 @@ foreach ($shares as $share) {
     
 </head>
 <body>
+
+	<div style="margin-top:20px; border:2px solid yellow;">
+		<a href="../webfolder?mapkey=<?php echo $map_key; ?>">个人云盘（web 版）</a>
+	</div>
+
 	<applet id="WDJavaTester" code="WDTester.class"  align="baseline" width="0" height="0">no java sdk found!!</applet>
 
 	<div id="outerShell" style="position: fixed; width: 100%; height: 100%; overflow-y:auto">
@@ -152,15 +157,10 @@ foreach ($shares as $share) {
 								isLan: "<?php echo $isLan; ?>",
 								debug:"<?php echo $_GET['debug'];?>"
 							} ;
-						 deployJava.runApplet(attributes, parameters, '1.6');
+//						 deployJava.runApplet(attributes, parameters, '1.6');
 						</script>
 
 					</div>
-
-<div style="margin-top:20px; border:2px solid yellow;">
-	<a href="../webfolder?mapkey=<?php echo $map_key; ?>">个人云盘（web 版）</a>
-</div>
-
                 </div>
 
                 <div class='bottomGlow'>

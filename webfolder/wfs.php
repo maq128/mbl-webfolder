@@ -130,13 +130,20 @@ function wfsUpload()
 		return;
 	}
 
+	// 如果上传的文件带有路径
+	$extraPath = '';
+	if ( $_REQUEST['fullpath'] ) {
+		$extraPath = dirname( $_REQUEST['fullpath'] );
+		$extraPath = mkdirIfNecessary( $realDir, $extraPath );
+	}
+
 	// 计算得到一个合适的目标文件名
 	$name = $_FILES['qqfile']['name'];
-	$realpath = $realDir . '/' . $name;
+	$realpath = $realDir . $extraPath . '/' . $name;
 	$seq = 0;
 	while ( file_exists( iconvUtf8ToPlatform( $realpath ) ) ) {
 		$name = '复制(' . (++$seq) . ')' . $_FILES['qqfile']['name'];
-		$realpath = $realDir . '/' . $name;
+		$realpath = $realDir . $extraPath . '/' . $name;
 		if ( $seq >= 10 ) {
 			echo json_encode( array(
 				'success'	=> false,
@@ -158,6 +165,7 @@ function wfsUpload()
 	touch( iconvUtf8ToPlatform( $realpath ), $mtime );
 	$result = array(
 		'success'	=> true,
+		'dir'		=> convRealToRelative( $realDir . $extraPath ),
 		'name'		=> $name,
 	);
 	echo json_encode( $result );
@@ -284,7 +292,7 @@ function wfsMoveFso()
 		if ( !$bForce || !unlink( iconvUtf8ToPlatform( $realDest ) ) ) {
 			echo json_encode( array(
 				'success'	=> false,
-				'error'		=> '目标文件已经存在，且不能覆盖',
+				'error'		=> '目标文件已经存在，不能覆盖',
 			));
 			return;
 		}
@@ -317,6 +325,20 @@ function rrmdir( $dir )
 		}
 	}
 	return rmdir( $dir );
+}
+
+function mkdirIfNecessary( $realParent, $subPath )
+{
+	// 直接创建指定的目录
+	$fullpath = $realParent . $subPath;
+	mkdir( iconvUtf8ToPlatform( $fullpath ), 0777, true );
+
+	// 验证目录是否存在，以及路径是否安全
+	$realpath = iconvPlatformToUtf8( realpath( iconvUtf8ToPlatform( $fullpath ) ) );
+	if ( strStartsWith( $realpath, $realParent ) ) {
+		return strStripPrefix( $realpath, strlen($realParent) );
+	}
+	return '';
 }
 
 function isSafeFilename( $filename )

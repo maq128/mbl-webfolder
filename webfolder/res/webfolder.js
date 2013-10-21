@@ -71,7 +71,7 @@ function createUploader( clzButton )
 		},
 		text: {
 			uploadButton: '选择文件',
-			dragZone: '拖拽文件到这里<br>就可以上传到当前目录<br><br>如果拖拽目录到这里<br>则所有文件都会直接上传到当前目录',
+			dragZone: '拖拽文件或目录到这里<br>即可上传<br><br>如果包含了目录<br>则相应的目录结构会被保留',
 			cancelButton: '取消',
 			formatProgress: '{percent}% / {total_size}',
 			waitingForResponse: '正在上传...'
@@ -106,12 +106,12 @@ function createUploader( clzButton )
 			var domStatus = domLi.find( '.qq-upload-status-text' );
 			domStatus.html( '[<span class="btn-reset-filename">正名</span>]' );
 			var domBtn = domStatus.find( '.btn-reset-filename' );
-			domBtn.attr( 'title', '因同名文件已经存在，该文件已经上传并保存为：\r\n  ' + responseJSON.name + '\r\n点击可以恢复原名，并覆盖旧文件。' );
+			domBtn.attr( 'title', '因同名文件已经存在，该文件已经上传并保存为：\r\n  /' + responseJSON.dir + '/' + responseJSON.name + '\r\n点击可以恢复原名，并覆盖旧文件。' );
 			domBtn.on( 'click', function() {
 				var params = {
 					m: 'moveFso',
-					path: g_curPath + '/' + responseJSON.name,
-					toDir: g_curPath,
+					path: responseJSON.dir + '/' + responseJSON.name,
+					toDir: responseJSON.dir,
 					toName: name,
 					force: true
 				};

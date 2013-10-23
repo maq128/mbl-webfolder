@@ -7,9 +7,7 @@
 hack 资料
 =========
 
-Hacking WD MyBook World Ed
-
-[MyBook Live](http://mybookworld.wikidot.com/mybook-live)
+Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook-live)
 
 
 关于 webdav
@@ -35,7 +33,7 @@ Hacking WD MyBook World Ed
 启用 ssh
 ========
 
-http://mybooklive/UI/ssh
+	http://mybooklive/UI/ssh
 
 
 常用命令

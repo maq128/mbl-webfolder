@@ -71,7 +71,7 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	# 更新软件包列表
 	apt-get update
 
-	# 安装 Optware，并更新软件库
+	# 安装 Optware，并更新软件库（这个似乎后面没有用到……）
 	wget http://mybookworld.wikidot.com/local--files/optware/setup-mybooklive.sh
 	sh setup-mybooklive.sh
 	/opt/bin/ipkg update
@@ -94,9 +94,10 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	apt-key add key.pub
 
 	# 安装 gcc 的过程中总是需要升级 libc6-ppc64 [2.11.2-2 (now) -> 2.13-38 (stable)]
-	# 但总是失败，所以这里先禁止对这它升级
+	# 但总是失败，可以像这样先禁止对这它升级（但似乎还是会导致一些安装失败）
 	aptitude hold libc6-ppc64
 
+	# 或者像这样强制升级（但不清楚是否会有什么副作用）
 	dpkg -i --force-overwrite /var/cache/apt/archives/libc-bin_2.13-38_powerpc.deb
 	dpkg -i --force-overwrite /var/cache/apt/archives/libc6_2.13-38_powerpc.deb
 

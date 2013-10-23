@@ -3,33 +3,40 @@
 
 	西部数据（WD）My Book Live 3.5英寸家庭网络硬盘2TB(WDBACG0020HCH)
 
+
 hack 资料
 =========
 
-	Hacking WD MyBook World Ed
-	MyBook Live
-	http://mybookworld.wikidot.com/mybook-live
+Hacking WD MyBook World Ed
+[MyBook Live](http://mybookworld.wikidot.com/mybook-live)
+
 
 关于 webdav
 ===========
 
 #### webdav 访问网址为类似这样：
+
 	http://192.168.1.80/Public/
-	缺省只能用 deviceUserId / deviceUserAuthCode 访问 webdav。
+
+缺省只能用 deviceUserId / deviceUserAuthCode 访问 webdav。
 
 #### 这里似乎有一个安全漏洞：
-	1. 这组验证信息是由 wd2go.com 网站掌握的。
-	2. deviceUserId / deviceUserAuthCode 会出现在 url 里。
+
+* 这组验证信息是由 wd2go.com 网站掌握的。
+* deviceUserId / deviceUserAuthCode 会出现在 url 里。
 
 #### 启用本地帐号的 webdav 访问：
-	编辑文件 /etc/nas/config/apache-php-webdav.conf
-	将 WEBDAV_ALLOW_SYSTEM_USER 的值修改为 "true"
-	然后通过控制面板修改一次密码即可。
+
+编辑文件 /etc/nas/config/apache-php-webdav.conf
+将 WEBDAV_ALLOW_SYSTEM_USER 的值修改为 "true"
+然后通过控制面板修改一次密码即可。
+
 
 启用 ssh
 ========
 
-	http://mybooklive/UI/ssh
+http://mybooklive/UI/ssh
+
 
 常用命令
 ========
@@ -59,6 +66,7 @@ hack 资料
 	# 伪装成低版本的 firmware
 	echo "02.01.06" > /etc/version
 
+
 准备工作
 ========
 
@@ -69,6 +77,7 @@ hack 资料
 	wget http://mybookworld.wikidot.com/local--files/optware/setup-mybooklive.sh
 	sh setup-mybooklive.sh
 	/opt/bin/ipkg update
+
 
 建立开发环境
 ============
@@ -104,6 +113,7 @@ hack 资料
 
 	# 安装 aclocal / autoconf / automake
 	aptitude install automake
+
 
 尚未成功的尝试
 ==============

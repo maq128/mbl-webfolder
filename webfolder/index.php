@@ -17,18 +17,27 @@ if ( $os[0] == 'windows' ) {
 			$username = $_REQUEST['login_user'];
 			$password = $_REQUEST['login_pass'];
 			$_SESSION['wfs_user_id'] = authenticateLocalUser( $username, $password );
-			$url = str_replace( 'https://', 'http://', $_SERVER['SCRIPT_URI'] );
-			header( 'Location: ' . $url );
+			header( 'Location: ' . getThisUrl( 'http://' ) );
 			exit();
 		}
 	}
 
 	if ( isset($_REQUEST['logout']) ) {
 		session_destroy();
-		$url = str_replace( 'https://', 'http://', $_SERVER['SCRIPT_URI'] );
-		header( 'Location: ' . $url );
+		header( 'Location: ' . getThisUrl( 'http://' ) );
 		exit();
 	}
+}
+
+// 当浏览器通过 mybooklive-deviceXXXXXX.wd2go.com 访问时，由于 wd2go.com 的中转
+// 作用，PHP 程序实际收到的 SERVER_NAME/SERVER_ADDR 不一定跟浏览器地址栏中一致。
+// 本函数确保取到跟浏览器地址栏中一致的 url。
+function getThisUrl( $scheme )
+{
+	$crack = parse_url( $_SERVER['REQUEST_URI'] );
+	$host = $crack['host'] ? $crack['host'] : $_SERVER['SERVER_NAME'];
+	$path = $crack['path'];
+	return "{$scheme}{$host}{$path}";
 }
 ?><!DOCTYPE html>
 <html>
@@ -64,11 +73,10 @@ if ( $_SESSION['wfs_user_id'] ) {
 <script language="JavaScript" src="res/webfolder.js"></script>
 <?php
 } else {
-	$authUrl = str_replace( 'http://', 'https://', $_SERVER['SCRIPT_URI'] );
 ?>
 <fieldset>
 	<legend>请输入登录信息：</legend>
-	<form method="post" action="<?php echo $authUrl; ?>">
+	<form method="post" action="<?php echo getThisUrl( 'https://' ); ?>">
 		帐号：<input type="text" name="login_user" />
 		<br>
 		密码：<input type="password" name="login_pass" />

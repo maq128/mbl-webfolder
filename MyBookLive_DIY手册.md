@@ -30,11 +30,19 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 * 然后通过控制面板修改一次密码即可。
 
 
-启用 ssh
+系统定制
 ========
+
+#### 启用 ssh
 
 	http://mybooklive/UI/ssh
 
+#### 禁用 miocrawlerd, mediacrawlerd
+
+	# 参考资料 http://i.migege.com/disable-mediacrawler-on-my-book-live.html
+	# 参考文件 etc/init.d/orion
+	/usr/local/orion/miocrawler/miocrawlerd disable
+	/usr/local/mediacrawler/mediacrawlerd disable
 
 常用命令
 ========
@@ -65,20 +73,13 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	echo "02.01.06" > /etc/version
 
 
-准备工作
-========
-
-	# 更新软件包列表
-	apt-get update
+建立开发环境
+============
 
 	# 安装 Optware，并更新软件库（这个似乎后面没有用到……）
 	wget http://mybookworld.wikidot.com/local--files/optware/setup-mybooklive.sh
 	sh setup-mybooklive.sh
 	/opt/bin/ipkg update
-
-
-建立开发环境
-============
 
 	# 更新几个证书（否则 aptitude update 会报错）
 	gpg --keyserver pgp.mit.edu --recv-keys AED4B06F473041FA
@@ -115,7 +116,7 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 
 
 安装花生壳
-============
+==========
 
 	# 官方文档 http://service.oray.com/question/116.html
 	# 注意：官方文档中写的版本号是 2.0.2.16556，这是旧版，运行时连接验证失败
@@ -134,13 +135,14 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	automake
 	./configure
 	make
+	cp /usr/local/src/phddns-2.0.5.19225/src/phddns /usr/bin/
 
 	# 初次运行，设置帐号、密码、日志文件
-	src/phddns
+	/usr/bin/phddns
 
 	# 配置为自启动后台进程
-	cp src/phddns /usr/bin/
 	# 在 /etc/rc.local 文件中增加下面的内容
 	/usr/bin/phddns -c /etc/phlinux.conf -d
-	# 创建符号连接指向 rc.local（缺省是没有的）
+	# 创建符号连接指向 rc.local（缺省是不执行 rc.local）
 	ln -s /etc/rc.local /etc/rc2.d/S99rcLocal
+

@@ -8,7 +8,7 @@ if ( strStartsWith( strtolower(php_uname('s')), 'windows' ) ) {
 	$GLOBALS['wfs_platform_encoding'] = 'GBK';
 } else {
 	// 真实环境初始化
-	require_once('./mybooklive.inc.php');
+	session_start();
 
 	// 如果没有认证身份……
 	if ( empty($_SESSION['wfs_user_id']) ) {
@@ -17,6 +17,28 @@ if ( strStartsWith( strtolower(php_uname('s')), 'windows' ) ) {
 			'error'		=> '没有访问权限',
 		));
 		exit();
+	}
+
+	$GLOBALS['wfs_root'] = realpath( '/DataVolume/shares' );
+	$GLOBALS['wfs_shares'] = array();
+	$GLOBALS['wfs_platform_encoding'] = 'UTF-8';
+
+	// 以下部分代码来自 /var/www/Admin/webapp/htdocs/secureCommon.inc
+	ini_set(
+		'include_path',
+		implode( ':', array(
+			'.',
+			$_SERVER["__ADMIN_API_ROOT"] . '/webapp/includes/',
+			$_SERVER["__ADMIN_API_ROOT"] . '/webapp/classes/api/',
+			ini_get('include_path'),
+		))
+	);
+
+	require_once("shareaccess.php");
+	$shrObj = new ShareAccess();
+	$shares = $shrObj->getSharesForUser( $_SESSION['wfs_user_id'] );
+	foreach ( $shares as $share ) {
+		$GLOBALS['wfs_shares'][] = $share['share_name'];
 	}
 }
 

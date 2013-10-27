@@ -6,16 +6,25 @@ if ( $os[0] == 'windows' ) {
 	$_SESSION['wfs_user_id'] = 1;
 } else {
 	// 真实环境初始化
-	require_once('../htdocs/secureCommon.inc');
+	session_start();
 
 	// 如果没有认证身份……
 	if ( empty($_SESSION['wfs_user_id']) ) {
-		$host = $_SERVER['SERVER_NAME'];
-		$uri = $_SERVER['REQUEST_URI'];
+		// 以下部分代码来自 /var/www/Admin/webapp/htdocs/secureCommon.inc
+		ini_set(
+			'include_path',
+			implode( ':', array(
+				'.',
+				$_SERVER["__ADMIN_API_ROOT"] . '/webapp/includes/',
+				$_SERVER["__ADMIN_API_ROOT"] . '/webapp/classes/api/',
+				ini_get('include_path'),
+			))
+		);
 
 		if ( isset($_REQUEST['login_user']) ) {
 			$username = $_REQUEST['login_user'];
 			$password = $_REQUEST['login_pass'];
+			require_once("security.inc");
 			$_SESSION['wfs_user_id'] = authenticateLocalUser( $username, $password );
 			header( 'Location: ' . getThisUrl( 'http://' ) );
 			exit();

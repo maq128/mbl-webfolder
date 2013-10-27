@@ -9,6 +9,15 @@ if ( strStartsWith( strtolower(php_uname('s')), 'windows' ) ) {
 } else {
 	// 真实环境初始化
 	require_once('./mybooklive.inc.php');
+
+	// 如果没有认证身份……
+	if ( empty($_SESSION['wfs_user_id']) ) {
+		echo json_encode( array(
+			'success'	=> false,
+			'error'		=> '没有访问权限',
+		));
+		exit();
+	}
 }
 
 // 接口调度

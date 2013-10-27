@@ -61,6 +61,7 @@ function getThisUrl( $scheme )
 <?php
 if ( $_SESSION['wfs_user_id'] ) {
 ?>
+<div id="logout"><a href="?logout">退出</a></div>
 <div id="toolbar"></div>
 
 <table id="list">

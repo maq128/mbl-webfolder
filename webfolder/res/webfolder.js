@@ -194,7 +194,7 @@ function switchToDir( path )
 				'<button class="btn-create-dir">创建子目录</button>',
 				'<button class="btn-upload-file">上传文件</button>'
 			].join(' ');
-			html = '<input class="cur-path" value="/' + g_curPath + '"/><br>' + html;
+			html = '<input class="cur-path" value="/' + g_curPath + '" disabled/><br>' + html;
 		}
 
 		g_domToolbar.html( html );

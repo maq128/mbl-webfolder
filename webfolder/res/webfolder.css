@@ -3,7 +3,7 @@ body {
 	padding: 0px;
 	background-color: white;
 	color: black;
-	font-size: 14px;
+	font-size: 12px;
 	cursor: default;
 	height: 100%;
 }
@@ -11,6 +11,10 @@ body {
 #window-body {
 	width: 100%;
 	height: 100%;
+}
+
+#logout {
+	float: right;
 }
 
 #toolbar {

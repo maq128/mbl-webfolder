@@ -114,21 +114,33 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	aptitude install automake
 
 
-尚未成功的尝试
-==============
+安装花生壳
+============
 
-#### 安装花生壳（似乎建立连接时验证信息算法有误）
-
-	# http://service.oray.com/question/116.html
+	# 官方文档 http://service.oray.com/question/116.html
+	# 注意：官方文档中写的版本号是 2.0.2.16556，这是旧版，运行时连接验证失败
 	cd /usr/local/src
-	wget http://download.oray.com/peanuthull/phddns-2.0.2.16556.tar.gz
-	tar zxvf phddns-2.0.2.16556.tar.gz
-	cd phddns-2.0.2.16556
+	wget http://download.oray.com/peanuthull/phddns-2.0.5.19225.tar.gz
+	tar zxvf phddns-2.0.5.19225.tar.gz
+
+	# 修改代码，关闭 log 输出（避免总写硬盘）
+	修改 /usr/local/src/phddns-2.0.5.19225/src/log.h 文件，
+	把 #define LOG(level) 后面的内容去掉即可。
+
+	# 编译
+	cd /usr/local/src/phddns-2.0.5.19225
 	aclocal
 	autoconf
 	automake
 	./configure
 	make
-	cd src
-	./phddns
-	# 输入帐号、密码等
+
+	# 初次运行，设置帐号、密码、日志文件
+	src/phddns
+
+	# 配置为自启动后台进程
+	cp src/phddns /usr/bin/
+	# 在 /etc/rc.local 文件中增加下面的内容
+	/usr/bin/phddns -c /etc/phlinux.conf -d
+	# 创建符号连接指向 rc.local（缺省是没有的）
+	ln -s /etc/rc.local /etc/rc2.d/S99rcLocal

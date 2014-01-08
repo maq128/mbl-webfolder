@@ -44,6 +44,13 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	/usr/local/orion/miocrawler/miocrawlerd disable
 	/usr/local/mediacrawler/mediacrawlerd disable
 
+#### Putty 登录时中文乱码问题
+
+	在 Window → Translation 中，Received data assumed to be in which character set 设置为 UTF-8
+
+	在 shell 中执行如下命令（或者把这个命令写入 .bashrc 文件）：
+	export LC_ALL='zh_CN.utf8'
+
 常用命令
 ========
 

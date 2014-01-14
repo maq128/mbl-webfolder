@@ -51,6 +51,20 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	在 shell 中执行如下命令（或者把这个命令写入 .bashrc 文件）：
 	export LC_ALL='zh_CN.utf8'
 
+#### 系统相关文件位置
+
+	Apache2 配置文件
+	/etc/apache2/apache2.conf
+
+	web server 主目录
+	/var/www/
+
+	WebDAV 相关配置
+	/etc/nas/apache2/auth/*
+
+	PHP 配置文件
+	/etc/php5/apache2/php.ini
+
 常用命令
 ========
 

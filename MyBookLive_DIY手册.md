@@ -115,6 +115,14 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	gpg --armor --export 6FB2A1C265FFB764 > key.pub
 	apt-key add key.pub
 
+	gpg --keyserver pgp.mit.edu --recv-keys 64481591B98321F9
+	gpg --armor --export 64481591B98321F9 > key.pub
+	apt-key add key.pub
+
+	gpg --keyserver pgp.mit.edu --recv-keys 7638D0442B90D010
+	gpg --armor --export 7638D0442B90D010 > key.pub
+	apt-key add key.pub
+
 	# 安装 gcc 的过程中总是需要升级 libc6-ppc64 [2.11.2-2 (now) -> 2.13-38 (stable)]
 	# 但总是失败，可以像这样先禁止对这它升级（但似乎还是会导致一些安装失败）
 	aptitude hold libc6-ppc64
@@ -125,8 +133,8 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 
 	# 安装 gcc / make
 	aptitude update
-	aptitude install gcc-4.2
-	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.2 42 --slave /usr/bin/cpp cpp /usr/bin/cpp-4.2
+	aptitude install gcc
+	# update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.2 42 --slave /usr/bin/cpp cpp /usr/bin/cpp-4.2  ——此句似无必要
 	aptitude install make
 
 	# 安装 c++
@@ -173,3 +181,54 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 
 	*/10 * * * * root curl http://username:password@ddns.oray.com/ph/update > /dev/null
 
+
+安装脱机下载工具
+================
+
+	# 【智能路由】用路由器低成本打造NAS+迅雷离线下载+同步android文件
+	# https://luolei.org/openwrt-router-wifi-android-sync-iclould/
+
+	# 【DSM高阶篇】-安装aria2实现迅雷离线（更新完美版）
+	# http://www.chiphell.com/thread-580013-1-1.html
+
+	# linux 高速下载工具 aria2 的用法
+	# http://blog.sina.com.cn/s/blog_8cf0057a01017nun.html
+
+	# aria2 - The next generation download utility.
+	# http://aria2.sourceforge.net/
+	# http://aria2.sourceforge.net/manual/en/html/
+
+	aptitude install libxml2-dev
+	aptitude install libgnutls-dev
+	aptitude install libgcrypt-dev
+	aptitude install nettle-dev
+	aptitude install libgmp-dev
+	aptitude install libssh2-1-dev
+	aptitude install libc-ares-dev
+	aptitude install zlib1g-dev
+	aptitude install libsqlite3-dev
+	aptitude install pkg-config
+	aptitude install libgpg-error-dev
+	aptitude install libgcrypt-dev
+	aptitude install libssl-dev
+
+	cd /usr/local/src
+	wget http://jaist.dl.sourceforge.net/project/aria2/stable/aria2-1.19.0/aria2-1.19.0.tar.gz
+	tar -xvf aria2-1.19.0.tar.gz
+	cd aria2-1.19.0
+	./configure --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
+	make
+	make install
+
+	# 安装 webui-aria2
+	# https://github.com/ziahamza/webui-
+
+	cd /usr/local/src
+	wget -O webui-aria2-master.zip https://github.com/ziahamza/webui-aria2/archive/master.zip
+	unzip webui-aria2-master.zip -d .
+	chown -R www-data webui-aria2-master
+	chmod -R 755 webui-aria2-master
+	mv webui-aria2-master /var/www/webui-aria2
+
+	aria2c --enable-rpc --rpc-listen-all --continue=true --dir=/DataVolume/shares/maq/bt &
+	http://mybooklive/webui-aria2/

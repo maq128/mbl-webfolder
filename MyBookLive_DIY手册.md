@@ -242,10 +242,10 @@ hack 资料
 
 	从 U 盘启动后，原有的 U 盘内容被映射到 /tftpboot/ 下。依次执行下面的命令即可：
 
-	cd /tftpboot/MBL
-	mdadm -S /dev/md0
-	chmod 755 debrick.sh
-	./debrick.sh rootfs.img /dev/sda destroy
+		cd /tftpboot/MBL
+		mdadm -S /dev/md0
+		chmod 755 debrick.sh
+		./debrick.sh rootfs.img /dev/sda destroy
 
 	最后一个命令中的 destroy 参数表示要对硬盘上分区做销毁重建，适用于外来硬盘。
 	如果硬盘是 MBL 中原有的，只是固件需要刷新，而数据分区希望保留的话，不要使用 destroy 参数。

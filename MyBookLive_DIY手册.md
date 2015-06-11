@@ -3,11 +3,24 @@
 
 	西部数据（WD）My Book Live 3.5英寸家庭网络硬盘2TB(WDBACG0020HCH)
 
+	官方下载
+	http://support.wdc.com/product/download.asp?groupid=902&lang=cn
+	http://download.wdc.com/nas/apnc-024309-038-20141208.deb
+	http://download.wdc.com/nas/apnc-023205-046-20120910.deb
+
 
 hack 资料
 =========
 
-Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook-live)
+	Hacking WD MyBook World Ed - [MyBook Live]
+	http://mybookworld.wikidot.com/mybook-live
+
+	My Book Live脱机BT/PT下载改造教程
+	http://www.right.com.cn/forum/thread-72693-1-1.html
+	http://www.right.com.cn/forum/thread-110111-1-1.html
+
+	Complitly debricking guide
+	http://mybookworld.wikidot.com/forum/t-317579/complitly-debricking-guide-draft
 
 
 关于 webdav
@@ -182,6 +195,68 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	*/10 * * * * root curl http://username:password@ddns.oray.com/ph/update > /dev/null
 
 
+刷固件
+======
+
+#### 参考资料
+
+	My Book Live脱机BT/PT下载改造教程 之二 重装系统方法
+	http://www.right.com.cn/forum/thread-110111-1-1.html
+
+	# SystemRescueCD
+	http://www.sysresccd.org/Download
+
+	# 把 SystemRescueCD 制作成启动 U 盘
+	http://www.sysresccd.org/Sysresccd-manual-en_How_to_install_SystemRescueCd_on_an_USB-stick
+
+#### 关于参考资料中帖子谈到的三个方法
+
+* 方法二看上去是最正宗的解决方案，实践验证有效。
+
+* 方法一应该是方法二的分解动作，而且其提供的脚本对于设备名有特定的要求，如果跟实际情况不符的话，还得手工修改脚本。
+
+* 方法三实际上是官方提供的固件升级方法，对于已经变砖的机器无效。
+
+#### 操作过程
+
+基本上按方法二来操作，只是换成从 U 盘启动临时系统的方式。
+
+1. 下载 SystemRescueCd 并制作可启动的 U 盘。
+
+U 盘最好是格式化成 FAT32。
+
+如果制作出来的 U 盘不能正常启动，可能需要修改 \boot\grub\grub-453.cfg 文件，把里面所有的 isolinux 全部替换成 syslinux。
+
+2. 准备固件文件和脚本程序。
+
+下载官方固件（比如 apnc-024309-038-20141208.deb），逐层解压缩，得到 rootfs.img（一个 2G 的文件）。
+
+在 U 盘上新建一个目录 \MBL，并把 rootfs.img 和 debrick.sh 复制到里面。
+
+3. 连接硬盘和 U 盘，启动电脑。
+
+电脑上只连接一块待刷的 SCSI 硬盘，然后从 U 盘启动。
+启动后，确认一下，U 盘的设备名是 /dev/sdb，硬盘的设备名是 /dev/sda。
+
+4. 启动电脑开始刷固件。
+
+从 U 盘启动后，原有的 U 盘内容被映射到 /tftpboot/ 下。依次执行下面的命令即可：
+
+	cd /tftpboot/MBL
+	mdadm -S /dev/md0
+	chmod 755 debrick.sh
+	./debrick.sh rootfs.img /dev/sda destroy
+
+最后一个命令中的 destroy 参数表示要对硬盘上分区做销毁重建，适用于外来硬盘。
+如果硬盘是 MBL 中原有的，只是固件需要刷新，而数据分区希望保留的话，不要使用 destroy 参数。
+
+5. 恢复使用原来硬盘上的数据内容。
+
+刷固件的时候不使用 destroy 参数，可以保留原来硬盘上数据分区的内容。
+但是重新启动 MBL 之后，这些内容通过 Dashboard 或者 Webdav 都是看不到的，
+需要按原来的用户帐号和共享目录重新创建，然后就能看到了。创建共享目录不会破坏原来的同名目录内容。
+
+
 安装脱机下载工具
 ================
 
@@ -221,7 +296,7 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	make install
 
 	# 安装 webui-aria2
-	# https://github.com/ziahamza/webui-
+	# https://github.com/ziahamza/webui-aria2
 
 	cd /usr/local/src
 	wget -O webui-aria2-master.zip https://github.com/ziahamza/webui-aria2/archive/master.zip
@@ -230,5 +305,7 @@ Hacking WD MyBook World Ed - [MyBook Live](http://mybookworld.wikidot.com/mybook
 	chmod -R 755 webui-aria2-master
 	mv webui-aria2-master /var/www/webui-aria2
 
-	aria2c --enable-rpc --rpc-listen-all --continue=true --dir=/DataVolume/shares/maq/bt &
+	# 配置为自启动后台进程
+	# 修改 /etc/init.d/wdAppFinalize 文件，在 do_start() 末尾处增加下面的内容：
+	nohup aria2c --enable-rpc --rpc-listen-all --continue=true --dir=/DataVolume/shares/maq/bt > /dev/null 2>&1 &
 	http://mybooklive/webui-aria2/

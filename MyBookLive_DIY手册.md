@@ -87,6 +87,9 @@ hack 资料
 常用命令
 ========
 
+	# NTP 校准时钟
+	ntpdate pool.ntp.org
+
 	# 查看 CPU、内存信息
 	cat /proc/cpuinfo
 	cat /proc/meminfo

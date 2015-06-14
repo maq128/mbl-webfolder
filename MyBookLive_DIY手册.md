@@ -328,15 +328,6 @@ hack 资料
 	make
 	make install
 
-	# 安装 webui-aria2
-	cd /usr/local/src
-	wget -O webui-aria2-master.zip https://github.com/ziahamza/webui-aria2/archive/master.zip
-	unzip webui-aria2-master.zip -d .
-	chown -R www-data webui-aria2-master
-	chmod -R 755 webui-aria2-master
-	mv webui-aria2-master /var/www/webui-aria2
-	# 编辑 /var/www/webui-aria2/configuration.js 文件，修改 localhost 为 mybooklive，使得浏览器打开后能连接到 aria2。
-
 	# 创建 /etc/aria2.conf 文件，内容如下：
 	daemon=true
 	enable-rpc=true
@@ -350,4 +341,13 @@ hack 资料
 	# 配置 aria2 为自启动后台进程
 	# 修改 /etc/init.d/wdAppFinalize 文件，在 do_start() 末尾处增加下面的内容：
 	/usr/local/bin/aria2c --conf-path=/etc/aria2.conf
+
+	# 安装 webui-aria2
+	cd /usr/local/src
+	wget -O webui-aria2-master.zip https://github.com/ziahamza/webui-aria2/archive/master.zip
+	unzip webui-aria2-master.zip -d .
+	chown -R www-data webui-aria2-master
+	chmod -R 755 webui-aria2-master
+	mv webui-aria2-master /var/www/webui-aria2
+	# 编辑 /var/www/webui-aria2/configuration.js 文件，修改 localhost 为 mybooklive，使得浏览器打开后能连接到 aria2。
 	http://mybooklive/webui-aria2/

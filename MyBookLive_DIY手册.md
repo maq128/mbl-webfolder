@@ -316,6 +316,9 @@ hack 资料
 	# [教程] Linux下使用aria2+loli.lu免费下载迅雷离线资源
 	http://blog.binux.me/2011/12/howto_download_xunlei_offline_for_linux/
 
+	# 一些能用的BT Tracker服务器地址
+	http://www.wdssmq.com/post/20130323295.html
+
 #### 操作过程
 
 	# 编译安装 aria2
@@ -333,6 +336,11 @@ hack 资料
 	enable-rpc=true
 	rpc-listen-all=true
 	dir=/DataVolume/shares/maq/bt
+	enable-peer-exchange=true
+	bt-enable-lpd=true
+	enable-dht=true
+	dht-listen-port=6881-6999
+	bt-tracker=udp://coppersurfer.tk:6969/announce,http://tracker3.torrentino.com/announce,http://tracker2.torrentino.com/announce,http://tracker.tfile.me/announce
 	async-dns=false
 	save-session-interval=180
 	force-save=true

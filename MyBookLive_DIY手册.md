@@ -5,6 +5,7 @@
 
 	官方下载
 	http://support.wdc.com/product/download.asp?groupid=902&lang=cn
+	http://download.wdc.com/nas/apnc-024310-048-20150507.deb
 	http://download.wdc.com/nas/apnc-024309-038-20141208.deb
 	http://download.wdc.com/nas/apnc-023205-046-20120910.deb
 
@@ -285,7 +286,7 @@ hack 资料
 	| # 创建符号连接指向 rc.local（缺省是不执行 rc.local）
 	| ln -s /etc/rc.local /etc/rc2.d/S99rcLocal
 
-	# ---- 以上方法似乎过于麻烦，更简单的办法是在 crontab 里配置一条命令即可 ----
+	# ---- 以上方法似乎过于麻烦，更简单的办法是在 /etc/crontab 里配置一条命令即可 ----
 	# 参考资料
 	#	http://open.oray.com/wiki/doku.php?id=%E6%96%87%E6%A1%A3:%E8%8A%B1%E7%94%9F%E5%A3%B3:http%E5%8D%8F%E8%AE%AE%E8%AF%B4%E6%98%8E
 

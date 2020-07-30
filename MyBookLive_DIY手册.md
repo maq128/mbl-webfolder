@@ -360,3 +360,34 @@ hack 资料
 	mv webui-aria2-master /var/www/webui-aria2
 	# 编辑 /var/www/webui-aria2/configuration.js 文件，修改 localhost 为 mybooklive，使得浏览器打开后能连接到 aria2。
 	http://mybooklive/webui-aria2/
+
+
+安装 Transmission
+================
+
+	# Torrent Client on WD My Book Live?
+	# https://community.wd.com/t/torrent-client-on-wd-my-book-live/54556/10
+
+#### 操作过程
+
+先安装 FeaturePacks Manager，再在其中安装配置 Transmission。
+
+1. ssh 登录到 MBL，下载并安装 FeaturePacks Manager：
+
+	cd /root
+	wget -q http://highlevelbits.free.fr/download-MBLIVE/fpinstaller/fpkmgr_install.sh -O /root/fpkmgr_install.sh
+	sh /root/fpkmgr_install.sh
+
+2. 用浏览器访问 FeaturePacks Manager，初始的登录密码为 `welc0me`：
+
+	http://mybooklive/fpkmgr
+
+3. 在 FeaturePacks Manager 页面中选择安装 Transmission，安装过程需要几分钟。
+
+4. 在 FeaturePacks Manager 导航栏里面出现 Transmission Configure。
+
+5. 用浏览器访问 Transmission：
+
+	http://mybooklive:9091/
+
+6. 在 Transmission 的 Edit Preferences 里面找到传输端口，并配置路由器的端口映射。

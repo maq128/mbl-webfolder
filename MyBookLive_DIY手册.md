@@ -23,6 +23,9 @@ hack 资料
 	Complitly debricking guide
 	http://mybookworld.wikidot.com/forum/t-317579/complitly-debricking-guide-draft
 
+	Simple Hacks for WD MyBook Live and Live Duo
+	https://sites.google.com/site/wdmybooklivesimplehacks/home
+
 
 关于 webdav
 ===========
